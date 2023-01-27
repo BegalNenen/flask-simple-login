@@ -1,23 +1,21 @@
-from flask import Flask, request, jsonify
-import json
+from flask import Flask,render_template,request
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="html")
 
-# load data from JSON file
-with open('users.json') as json_file:
-    users = json.load(json_file)
-
-@app.route('/login', methods=['POST'])
+# Membuat halaman login dan memeriksa hasil input    
+@app.route('/admin', methods=['GET', 'POST'])
 def login():
-    # get username and password from request
-    username = request.json['username']
-    password = request.json['password']
-
-    # check if username and password match
-    if username in users and users[username] == password:
-        return jsonify({"status": "success"})
-    else:
-        return jsonify({"status": "failed"})
-
+    if request.method == 'POST':
+        # Mengambil string dari form login
+        username = request.form['username']
+        password = request.form['password']        
+        # Cek data username dan password
+        if username == 'admin' and password == 'pw@admin':
+        	    # Jika input benar, maka akan dialihkan ke halaman admin
+        	    return render_template('login_berhasil.html')
+        # Jika input salah, akan dialihkan ke halaman login (lagi)
+        return render_template('login_gagal.html')
+    # Ini halaman login utama
+    return render_template('login.html')
 if __name__ == '__main__':
-    app.run()
+	app.run(debug = True)
