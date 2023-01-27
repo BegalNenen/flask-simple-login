@@ -1,4 +1,4 @@
-### Simple Flask Login  
+### Flask Simple Login  
 Ini adalah aplikasi Flask Login tanpa Database dengan logika validasi sederhana. 
   
 ### Cara Kerja  
